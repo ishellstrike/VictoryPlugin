@@ -4465,6 +4465,27 @@ bool UVictoryBPFunctionLibrary::Victory_GetPixelFromT2D(UTexture2D* T2D, int32 X
 	RawImageData->Unlock();
 	return true;
 }
+bool UVictoryBPFunctionLibrary::Victory_GetPixelsArrayFromTRT2D(UTextureRenderTarget2D* T2D, int32& TextureWidth, int32& TextureHeight, TArray<FLinearColor>& PixelArray)
+{
+	if (!T2D)
+	{
+		return false;
+	}
+
+	FTextureRenderTargetResource* RTResource = T2D->GameThread_GetRenderTargetResource();
+
+	const ERangeCompressionMode kDontRangeCompress = RCM_MinMax;
+	FReadSurfaceDataFlags ReadPixelFlags(kDontRangeCompress);
+	ReadPixelFlags.SetLinearToGamma(true);
+
+	TextureWidth = T2D->SizeX;
+	TextureHeight = T2D->SizeY;
+
+	PixelArray.SetNumUninitialized(TextureWidth*TextureHeight);
+	RTResource->ReadLinearColorPixels(PixelArray, ReadPixelFlags);
+
+	return true;
+}
 bool UVictoryBPFunctionLibrary::Victory_GetPixelsArrayFromT2DDynamic(UTexture2DDynamic* T2D, int32& TextureWidth, int32& TextureHeight,TArray<FLinearColor>& PixelArray)
 {
 	if(!T2D) 
