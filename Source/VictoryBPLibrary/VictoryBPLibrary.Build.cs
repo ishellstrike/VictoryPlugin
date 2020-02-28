@@ -53,7 +53,8 @@ public class VictoryBPLibrary : ModuleRules
 				"UMG", "Slate", "SlateCore",
 				
 				"ImageWrapper",
-				
+
+                "PhysicsCore", 
 				"PhysX", 
 				
 				"HeadMountedDisplay",
@@ -70,7 +71,7 @@ public class VictoryBPLibrary : ModuleRules
 			);
 		
 		//APEX EXCLUSIONS
-		if (Target.Platform != UnrealTargetPlatform.Android && Target.Platform != UnrealTargetPlatform.HTML5 && Target.Platform != UnrealTargetPlatform.IOS)
+		if (Target.Platform != UnrealTargetPlatform.Android && Target.Platform != UnrealTargetPlatform.IOS)
 		{
 			PrivateDependencyModuleNames.AddRange(
 			new string[]
